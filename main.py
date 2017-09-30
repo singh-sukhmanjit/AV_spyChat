@@ -1,27 +1,56 @@
 from spy_details import name, salu, age, rating
 import sys
 
-def start_chat(spy_name, spy_age, spy_rating):
-    menu_choices = "What operation you want to perform ?\n 1. Status Update\n 2.\n 3."
-    print menu_choices
-    choice = raw_input("Enter your choice ")
-    if choice == 1:
-        pass
-    elif choice == 2:
-        pass
-    elif choice == 3:
-        pass
+status_messages = ["Bond, James Bond", "I dont give a fuck"]
+
+
+def add_status(current_status_message):
+    if current_status_message != None:
+        print "Your status is: {}".format(current_status_message)
     else:
-        sys.exit()
+        print "You have no status message "
+    default = raw_input("Do want to select from previous status (y/n)? ")
+    if default.upper() == "N":
+        new_status_message = raw_input("Enter new status update ")
+        if len(new_status_message) > 0:
+            updated_status_message = new_status_message
+            status_messages.append(updated_status_message)
+    elif default.upper() == "Y":
+        status_index = 1
+        for status in status_messages:
+            print "{}. {}".format(status_index, status)
+            status_index = status_index + 1
+        status_selected = int(raw_input("Select from above messages "))
+        if len(status_messages) >= status_selected:
+            updated_status_message = status_messages[status_selected - 1]
+    return updated_status_message
 
 
-question = "Continue as %s %s (Y/N)? " %(salu, name)
+
+def start_chat(spy_name, spy_age, spy_rating):
+    current_status_message = None
+    show_menu = True
+    while show_menu:
+        menu_choices = "What operation you want to perform ?\n 1. Status Update\n 2.\n 3."
+        print menu_choices
+        choice = int(raw_input("Enter your choice "))
+        if choice == 1:
+            current_status_message = add_status(current_status_message)
+        elif choice == 2:
+            pass
+        elif choice == 3:
+            pass
+        elif choice == 4:
+            show_menu = False
+
+
+question = "Continue as %s %s (y/n)? " %(salu, name)
 existing = raw_input(question)
-if existing=="Y":
+if existing.upper() == "Y":
     print "Authentication complete. Welcome {}{} age: {} and rating: {} Proud to have you".format(salu, name, age, rating)
     spy_status = True
     start_chat(name, age, rating)
-else:
+elif existing.upper() == "N":
     spy_name = raw_input("Welcome to spyChat, please enter your spyName ")
     if len(spy_name) > 0:
         print "Welcome " + spy_name
@@ -46,11 +75,3 @@ else:
 
     else:
         print "Enter name"
-
-# age = -1
-# if age>4:
-#     print "4 se jada"
-# elif age >2:
-#     print "2 se jada"
-# elif age<2:
-#     print"2 se kam"
