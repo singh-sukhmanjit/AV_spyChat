@@ -3,6 +3,27 @@ import sys
 
 status_messages = ["Bond, James Bond", "I dont give a fuck"]
 
+friends_name = []
+friends_age = []
+friends_rating = []
+friends_is_online = []
+
+def add_friend():
+    new_name = raw_input("Enter friends name ")
+    new_salu = raw_input("Are you Mr. or Ms. ? ")
+    new_name = new_salu + " " + new_name
+    new_age = int(raw_input("Age ? "))
+    new_rating = float(raw_input("Spy rating ? "))
+    if len(new_name) > 0 and new_age > 12:
+        friends_name.append(new_name)
+        friends_age.append(new_age)
+        friends_rating.append(new_rating)
+        friends_is_online.append(True)
+        print "Friend Added"
+    else:
+        print "Cant add you as friend with your information"
+    return len(friends_name)
+
 
 def add_status(current_status_message):
     if current_status_message != None:
@@ -31,13 +52,14 @@ def start_chat(spy_name, spy_age, spy_rating):
     current_status_message = None
     show_menu = True
     while show_menu:
-        menu_choices = "What operation you want to perform ?\n 1. Status Update\n 2.\n 3."
+        menu_choices = "What operation you want to perform ?\n 1. Status Update\n 2. Add a friend \n 3."
         print menu_choices
         choice = int(raw_input("Enter your choice "))
         if choice == 1:
             current_status_message = add_status(current_status_message)
         elif choice == 2:
-            pass
+            number_of_friends = add_friend()
+            print "You have {} friends".format(number_of_friends)
         elif choice == 3:
             pass
         elif choice == 4:
