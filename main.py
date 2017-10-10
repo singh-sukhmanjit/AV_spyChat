@@ -27,6 +27,15 @@ def add_friend():
     return len(friends)
 
 
+def select_friend():
+    item_number = 0
+    for friend in friends:
+        print "{}. {} aged {} with rating {} is online".format(item_number + 1, friend['name'], friend['age'], friend['rating'])
+        item_number = item_number + 1
+    item_number = int(raw_input("Select a friend "))
+    item_number = item_number - 1
+    return item_number
+
 def add_status(current_status_message):
     if current_status_message != None:
         print "Your status is: {}".format(current_status_message)
@@ -54,7 +63,8 @@ def start_chat(spy_name, spy_age, spy_rating):
     current_status_message = None
     show_menu = True
     while show_menu:
-        menu_choices = "What operation you want to perform ?\n 1. Status Update\n 2. Add a friend \n 3."
+        menu_choices = "What operation you want to perform ?\n 1. Status Update\n 2. Add a friend \n" \
+                       " 3. Send a message\n 4."
         print menu_choices
         choice = int(raw_input("Enter your choice "))
         if choice == 1:
@@ -63,7 +73,8 @@ def start_chat(spy_name, spy_age, spy_rating):
             number_of_friends = add_friend()
             print "You have {} friends".format(number_of_friends)
         elif choice == 3:
-            pass
+            selected = select_friend()
+            print selected
         elif choice == 4:
             show_menu = False
 
