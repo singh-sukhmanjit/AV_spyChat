@@ -1,28 +1,30 @@
-from spy_details import name, salu, age, rating
+from spy_details import spy
 import sys
 
 status_messages = ["Bond, James Bond", "I dont give a fuck"]
 
-friends_name = []
-friends_age = []
-friends_rating = []
-friends_is_online = []
+friends = []
+
 
 def add_friend():
-    new_name = raw_input("Enter friends name ")
-    new_salu = raw_input("Are you Mr. or Ms. ? ")
-    new_name = new_salu + " " + new_name
-    new_age = int(raw_input("Age ? "))
-    new_rating = float(raw_input("Spy rating ? "))
-    if len(new_name) > 0 and new_age > 12:
-        friends_name.append(new_name)
-        friends_age.append(new_age)
-        friends_rating.append(new_rating)
-        friends_is_online.append(True)
+    new_friend = {
+        'name': '',
+        'salu': '',
+        'age': 0,
+        'rating': 0.0
+    }
+
+    new_friend['name'] = raw_input("Enter friends name ")
+    new_friend['salu'] = raw_input("Are you Mr. or Ms. ? ")
+    new_friend['name'] = new_friend['salu'] + " " + new_friend['name']
+    new_friend['age'] = int(raw_input("Age ? "))
+    new_friend['rating'] = float(raw_input("Spy rating ? "))
+    if len(new_friend['name']) > 0 and new_friend['age'] > 12:
+        friends.append(new_friend)
         print "Friend Added"
     else:
         print "Cant add you as friend with your information"
-    return len(friends_name)
+    return len(friends)
 
 
 def add_status(current_status_message):
@@ -66,12 +68,12 @@ def start_chat(spy_name, spy_age, spy_rating):
             show_menu = False
 
 
-question = "Continue as %s %s (y/n)? " %(salu, name)
+question = "Continue as %s %s (y/n)? " %(spy['salu'], spy['name'])
 existing = raw_input(question)
 if existing.upper() == "Y":
-    print "Authentication complete. Welcome {}{} age: {} and rating: {} Proud to have you".format(salu, name, age, rating)
+    print "Authentication complete. Welcome {}{} age: {} and rating: {} Proud to have you".format(spy['salu'], spy['name'], spy['age'], spy['rating'])
     spy_status = True
-    start_chat(name, age, rating)
+    start_chat(spy['name'], spy['age'], spy['rating'])
 elif existing.upper() == "N":
     spy_name = raw_input("Welcome to spyChat, please enter your spyName ")
     if len(spy_name) > 0:
