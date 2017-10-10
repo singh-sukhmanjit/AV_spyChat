@@ -5,3 +5,5 @@ spy = {
     'rating': 4.8,
     'spy_is_online' : True
 }
+
+friends = []
